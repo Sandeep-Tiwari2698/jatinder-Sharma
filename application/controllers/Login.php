@@ -162,14 +162,41 @@ class Login extends CI_Controller{
                 'description'=> $this->input->post('description'),
 
             );
-            $id = $this->input->post('id');
-              $this->Login_model->addpd($insert,$id);
-               redirect('products');
+              $id = $this->input->post('id');
+               $this->db->where('id',$id);
+            $this->db->update('tbl_products',$insert); 
+             
+             redirect('products');
             }
 
           }
     
     
     }
+     public function product_status_changed()
+        {
+           
+            $id = $this->input->post('id');
+            $status = $this->input->post('status');
+
+            //check condition
+            if($status == '1'){
+                $user_status = '0';
+            }
+            else{
+                $user_status = '1';
+            }
+
+            $data = array('status' => $user_status );
+
+            $this->db->where('id',$id);
+            $this->db->update('tbl_products', $data); 
+
+            //Create success measage
+            $this->session->set_flashdata('msg',"User status has been changed successfully.");
+            $this->session->set_flashdata('msg_class','alert-success');
+
+            return redirect('products');
+        }
 
   }

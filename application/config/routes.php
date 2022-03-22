@@ -60,5 +60,4 @@ $route['register'] = 'Login/register';
  $route['userdata'] = 'Login/users';
  $route['products'] = 'Login/products';
  $route['addproduct'] = 'Login/add_prod';
- $route['update'] = 'Login/upd_pd';
 

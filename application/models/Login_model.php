@@ -37,7 +37,7 @@ class Login_model extends CI_Model{
   }
   public function upd_prod($insert,$id){
     $this->db->where('id',$id);
-    $this->db->get('tbl_products',$insert);
+    $this->db->update('tbl_products',$insert);
   }
  
 }

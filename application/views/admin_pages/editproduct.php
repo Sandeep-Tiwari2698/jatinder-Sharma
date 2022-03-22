@@ -1,7 +1,7 @@
 <div class="content-wrapper">    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">	
-   <form method="post" enctype="multipart/form-data" action="<?=base_url();?>">
+   <form method="post" enctype="multipart/form-data" action="<?=base_url('Login/upd_pd');?>">
       	<?=isset($error)? $error :''?>
       	<?= validation_errors();?>
 <div class="form-group">
