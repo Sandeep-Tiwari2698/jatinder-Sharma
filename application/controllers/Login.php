@@ -72,6 +72,104 @@ class Login extends CI_Controller{
       }
     }
 
+  ////User Table/////
+    public function users(){
+      $result['data'] = $this->Login_model->displayuser();
+      $this->load->view('layout/header');
+      $this->load->view('admin_pages/usertab',$result);
+      $this->load->view('layout/footer');
+    }
+    public function deleteuser($id){
+      $this->Login_model->delete($id);
+      
+      $this->users();
+    }
+
+    /////Products////
+    public function products(){
+      $result['data'] = $this->Login_model->displayproduct();
+      $this->load->view('layout/header');
+      $this->load->view('admin_pages/product_tab',$result);
+      $this->load->view('layout/footer');
+    }
+    public function add_prod(){
+
+
+      if($this->input->post('submit')){
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = 2000;
+        $config['max_width'] = 1500;
+        $config['max_height'] = 1500;
+
+        $this->load->helper('file');
+         $this->load->library('upload');
+         $this->upload->initialize($config);
+
+            if(!$this->upload->do_upload('image')){
+                echo $this->upload->display_errors();
+            }else{
+              $img = $this->upload->data('file_name');
+           
+            $insert = array(
+                'name'=> $this->input->post('name'),
+                'image'=> $img,
+                'price'=> $this->input->post('price'),
+                'description'=> $this->input->post('description'),
+
+            );
+              $this->Login_model->addpd($insert);
+               redirect('products');
+            }
+
+          }
+    
+     $this->load->view('layout/header');
+      $this->load->view('admin_pages/addproduct');
+     $this->load->view('layout/footer');
+    }
+    public function deleteproduct($id){
+      $this->Login_model->delete_pd($id);
+      $this->products();
+    }
+    public function productid($id){
+      $data['fetch']=$this->Login_model->pd_id($id);
+      $this->load->view('layout/header');
+      $this->load->view('admin_pages/editproduct',$data);
+     $this->load->view('layout/footer');
+    }
+    public function upd_pd(){
+       if($this->input->post('submit')){
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = 2000;
+        $config['max_width'] = 1500;
+        $config['max_height'] = 1500;
+
+        $this->load->helper('file');
+         $this->load->library('upload');
+         $this->upload->initialize($config);
+
+            if(!$this->upload->do_upload('image')){
+                echo $this->upload->display_errors();
+            }else{
+              $img = $this->upload->data('file_name');
+           
+            $insert = array(
+                'name'=> $this->input->post('name'),
+                'image'=> $img,
+                'price'=> $this->input->post('price'),
+                'description'=> $this->input->post('description'),
+
+            );
+            $id = $this->input->post('id');
+              $this->Login_model->addpd($insert,$id);
+               redirect('products');
+            }
+
+          }
+    
+    
+    }
 
   }
- 

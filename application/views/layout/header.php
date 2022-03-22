@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="<?=base_url();?>assets/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="<?=base_url();?>assets/plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -84,10 +85,18 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
            <?php if($this->session->userdata('level')==='admin'):?>
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link ">
+            <a href="<?=base_url();?>userdata" class="nav-link ">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Dashboard
+                User Table
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item menu-open">
+            <a href="<?=base_url();?>products" class="nav-link ">
+              <i class="nav-icon fas fa-bars"></i>
+              <p>
+                Product Table
               </p>
             </a>
           </li> 
@@ -104,7 +113,6 @@
             <li class="active"><a href="#">Dashboard</a></li>
                   <li><a href="#">Posts</a></li>
                   <?php endif;?>
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
