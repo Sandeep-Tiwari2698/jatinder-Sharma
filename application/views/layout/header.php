@@ -83,7 +83,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-           <?php if($this->session->userdata('level')==='admin'):?>
+           <?php if($this->session->userdata('level') =='admin'):?>
           <li class="nav-item menu-open">
             <a href="<?=base_url();?>userdata" class="nav-link ">
               <i class="nav-icon fas fa-user"></i>
@@ -100,7 +100,15 @@
               </p>
             </a>
           </li> 
-          <?php elseif($this->session->userdata('level')==='user'):?>
+          <li class="nav-item menu-open">
+            <a href="<?=base_url();?>chart" class="nav-link ">
+              <i class="nav-icon fas fa-bars"></i>
+              <p>
+               chart
+              </p>
+            </a>
+          </li> 
+          <?php elseif($this->session->userdata('level') =='user'):?>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-user"></i>
@@ -109,6 +117,15 @@
               </p>
             </a>
           </li> 
+           <li class="nav-item menu-open">
+            <a href="<?=base_url();?>shop" class="nav-link ">
+              <i class="nav-icon fas fa-bars"></i>
+              <p>
+               Shop
+              </p>
+            </a>
+          </li> 
+         
            <?php else:?>
             <li class="active"><a href="#">Dashboard</a></li>
                   <li><a href="#">Posts</a></li>

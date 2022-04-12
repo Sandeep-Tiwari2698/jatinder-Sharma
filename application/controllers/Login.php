@@ -3,6 +3,8 @@ class Login extends CI_Controller{
   function __construct(){
     parent::__construct();
     $this->load->model('Login_model');
+     $this->load->library('cart');
+    $this->load->model('Product');
   }
  
   function index(){
@@ -15,23 +17,43 @@ class Login extends CI_Controller{
     $validate = $this->Login_model->validate($email,$password);
     if($validate->num_rows() > 0){
         $data  = $validate->row_array();
+        $user_id  = $data['user_id'];
         $name  = $data['user_name'];
         $email = $data['user_email'];
         $level = $data['user_level'];
+
+        $cart_data = array();
+
+        //if(isset($data['cart_data']) && strlen($data['cart_data'])){
+
+            $cart_data = unserialize($data['cart_data']);
+        //}
+
         $sesdata = array(
+            'user_id' =>$user_id,
             'username'  => $name,
             'email'     => $email,
             'level'     => $level,
-            'logged_in' => TRUE
+            'logged_in' => TRUE,
+            'cart' => $cart_data
         );
+
         $this->session->set_userdata($sesdata);
+        $this->cart->insert($cart_data);
+        // $this->cart->update($cart_data);
+        /*echo '<pre>';
+        print_r($this->session->userdata());
+        echo '</pre>';
+
+        die;*/
+
         // access login for admin
         if($level === 'admin'){
             redirect('page');
  
         // access login for staff
         }elseif($level === 'user'){
-            redirect('page/staff');
+            redirect('Cart/index');
  
         // access login for author
         }else{
@@ -44,6 +66,18 @@ class Login extends CI_Controller{
   }
  
   function logout(){
+
+         $cart= $this->session->userdata('cart');
+
+          $user_id = $this->session->userdata('user_id');
+
+         
+          if(isset($cart)){
+
+           $this->Login_model->updateUser($user_id, array('cart_data' =>serialize($cart)));
+            $this->cart->update($cart);
+          }  
+
       $this->session->sess_destroy();
       redirect('login');
   }
@@ -56,7 +90,7 @@ class Login extends CI_Controller{
   $this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email|is_unique[tbl_users.user_email]');
   $this->form_validation->set_rules('user_password', 'Password', 'required');
   if($this->form_validation->run())
-  {
+  { 
    $data = array(
     'user_name'  => $this->input->post('user_name'),
     'user_email'  => $this->input->post('user_email'),
@@ -162,10 +196,11 @@ class Login extends CI_Controller{
                 'description'=> $this->input->post('description'),
 
             );
-              $id = $this->input->post('id');
-               $this->db->where('id',$id);
+           
+            $id = $this->input->post('id');
+            $this->db->where('id',$id);
             $this->db->update('tbl_products',$insert); 
-             
+            
              redirect('products');
             }
 
@@ -198,5 +233,23 @@ class Login extends CI_Controller{
 
             return redirect('products');
         }
+
+
+
+
+        public function pd_tb(){
+            $data= [];
+            $data['show'] = $this->Product_model->pd_data();
+            $this->load->view('frontend/productpage',$data);
+        }
+
+          // show active user 
+         public function showActiveUsers(){
+           
+            $data['fetch'] = $this->Login_model->getActiveUser();
+            $this->load->view('index',$data);
+        }
+        
+        
 
   }

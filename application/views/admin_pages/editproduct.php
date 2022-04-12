@@ -4,6 +4,7 @@
    <form method="post" enctype="multipart/form-data" action="<?=base_url('Login/upd_pd');?>">
       	<?=isset($error)? $error :''?>
       	<?= validation_errors();?>
+        <input type="hidden" name="id" value="<?=$fetch['id'];?>">
 <div class="form-group">
 <label>title</label>
 <input type="text" class="form-control" name="name" value="<?=$fetch['name'];?>">
@@ -21,7 +22,7 @@
 <label>Description</label>
 <input type="text" class="form-control" name="description" value="<?=$fetch['description'];?>" />
 </div>
-<input type="hidden" name="id" name="<?=$fetch['id'];?>">
+
 <input type="submit" class="btn btn-success" name="submit" value="submit">
 </form>
 </div>

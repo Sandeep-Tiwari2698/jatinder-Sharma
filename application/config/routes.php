@@ -57,7 +57,12 @@ $route['translate_uri_dashes'] = FALSE;
 // $route['login'] = 'Login/index';
 // $route['register'] = 'Register/index';
 $route['register'] = 'Login/register';
- $route['userdata'] = 'Login/users';
- $route['products'] = 'Login/products';
- $route['addproduct'] = 'Login/add_prod';
+$route['userdata'] = 'Login/users';
+$route['products'] = 'Login/products';
+$route['addproduct'] = 'Login/add_prod';
+
+$route['chart'] = 'Products/index';
+$route['shop'] = 'Products/index';
+
+
 
