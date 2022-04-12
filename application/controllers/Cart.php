@@ -99,33 +99,33 @@ class Cart extends CI_Controller{
         $remove = $this->cart->remove($rowid);
         redirect('cart/');
     }
-    public function currency(){
+    // public function currency(){
 
-               $data[] = '';
+    //            $data[] = '';
 
-               $convert_to = $this->input->post('cur');
+    //            $convert_to = $this->input->post('cur');
 
-                $endpoint = 'latest';
-                $access_key = '92c05c6deea28c99e532cfb424bd1c6b';
+    //             $endpoint = 'latest';
+    //             $access_key = '92c05c6deea28c99e532cfb424bd1c6b';
 
-                $api_url= 'http://api.exchangeratesapi.io/v1/'.$endpoint.'?access_key='.$access_key.'&base=EUR&symbols='.$convert_to;
+    //             $api_url= 'http://api.exchangeratesapi.io/v1/'.$endpoint.'?access_key='.$access_key.'&base=EUR&symbols='.$convert_to;
 
 
-                $ch = curl_init($api_url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                $json = curl_exec($ch);
-                curl_close($ch);
-                $exchangeRates = json_decode($json, true);
-                echo '<pre>';
-                print_r($exchangeRates);
-                echo '</pre>';
+    //             $ch = curl_init($api_url);
+    //             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //             $json = curl_exec($ch);
+    //             curl_close($ch);
+    //             $exchangeRates = json_decode($json, true);
+    //             echo '<pre>';
+    //             print_r($exchangeRates);
+    //             echo '</pre>';
                 
-                // echo $result = $exchangeRates['rates'][$cur];
+    //             // echo $result = $exchangeRates['rates'][$cur];
                 
 
 
-                $this->load->view('Cart/index',$data);
+    //             $this->load->view('Cart/index',$data);
         
-    }
+    // }
     
 }
